@@ -1,0 +1,40 @@
+:root{
+    --primary-color:#fc7107;
+    --second-color: #ffffff;
+    --gray-color: #f7f7f7;
+}
+
+.navbar{
+    background-color: var(--gray-color);
+    color: var(--primary-color);
+}
+.navbar-brand{
+    color: var(--primary-color);
+    
+}
+.navbar-brand:hover{
+    color: var(--primary-color);
+
+}
+
+.wrapper{
+    position: relative;
+}
+
+.wrapper svg{
+    position: absolute;
+    left: 4px;
+    top: 10px;
+}
+
+.form-control{
+    padding-left: 30px;
+    background-color: var(--second-color) ;
+    border: none;
+}
+
+.btn-search{
+    background-color: var(--primary-color);
+    color: var(--second-color);
+    border: none;
+}
