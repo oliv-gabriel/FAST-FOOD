@@ -7,7 +7,12 @@
 .navbar{
     background-color: var(--gray-color);
     color: var(--primary-color);
+    box-shadow: 1px 5px 24px -8px rgba(0,0,0,0.41);
+    -webkit-box-shadow: 1px 5px 24px -8px rgba(0,0,0,0.41);
+    -moz-box-shadow: 1px 5px 24px -8px rgba(0,0,0,0.41);
+    margin-bottom: 15px;
 }
+
 .navbar-brand{
     color: var(--primary-color);
     
@@ -37,4 +42,11 @@
     background-color: var(--primary-color);
     color: var(--second-color);
     border: none;
+}
+
+.linha{
+    border-bottom: rgb(146, 144, 144) solid 1px;
+    box-shadow: 1px 5px 24px -8px rgba(0,0,0,0.41);
+-webkit-box-shadow: 1px 5px 24px -8px rgba(0,0,0,0.41);
+-moz-box-shadow: 1px 5px 24px -8px rgba(0,0,0,0.41);
 }

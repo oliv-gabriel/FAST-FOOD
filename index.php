@@ -1,3 +1,7 @@
+<?php
+    include("connection.php");
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -8,6 +12,8 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
+
+
     <nav class="navbar ">
         <div class="container-fluid ">
           <a class="navbar-brand  ">Foda's food</a>
@@ -27,7 +33,7 @@
       </nav>
 
       <div>
-        <p class="fs-1 fw-bold">aaa</p>
+        <p class="linha fs-1 fw-bold d-flex justify-content-evenly ">PIZZAS</p>
   
         <div class="row row-cols-1 row-cols-md-5 g-4">
           <div class="col">
@@ -51,7 +57,7 @@
                   <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
                 </div>
                 <div class="card-footer">
-                  <small class="text-body-secondary">Last updated 3 mins ago</small>
+                  <small class="text-body-secondary"></small>
                 </div>
               </div>
             </div>
@@ -96,6 +102,7 @@
           </div>
         </div>
       </div>
+      <a href=".\connection.php">a</a>
 
 
 
