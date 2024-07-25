@@ -1,52 +1,90 @@
-:root{
-    --primary-color:#fc7107;
-    --second-color: #ffffff;
-    --gray-color: #f7f7f7;
+:root {
+  --primary-color: rgb(252, 114, 8);
+  --second-color: #ffffff;
+  --gray-color: #f7f7f7;
 }
 
-.navbar{
-    background-color: var(--gray-color);
-    color: var(--primary-color);
-    box-shadow: 1px 5px 24px -8px rgba(0,0,0,0.41);
-    -webkit-box-shadow: 1px 5px 24px -8px rgba(0,0,0,0.41);
-    -moz-box-shadow: 1px 5px 24px -8px rgba(0,0,0,0.41);
-    margin-bottom: 15px;
+.navbar {
+  background-color: var(--gray-color);
+  color: var(--primary-color);
+  box-shadow: 1px 5px 24px -8px rgba(0, 0, 0, 0.41);
+  -webkit-box-shadow: 1px 5px 24px -8px rgba(0, 0, 0, 0.41);
+  -moz-box-shadow: 1px 5px 24px -8px rgba(0, 0, 0, 0.41);
+  margin-bottom: 15px;
 }
 
-.navbar-brand{
-    color: var(--primary-color);
-    
-}
-.navbar-brand:hover{
-    color: var(--primary-color);
+.navbar-brand {
+  color: var(--primary-color);
 
 }
 
-.wrapper{
-    position: relative;
+.navbar-brand:hover {
+  color: var(--primary-color);
+
 }
 
-.wrapper svg{
-    position: absolute;
-    left: 4px;
-    top: 10px;
+.wrapper {
+  position: relative;
 }
 
-.form-control{
-    padding-left: 30px;
-    background-color: var(--second-color) ;
-    border: none;
+.wrapper svg {
+  position: absolute;
+  left: 4px;
+  top: 10px;
 }
 
-.btn-search{
-    background-color: var(--primary-color);
-    color: var(--second-color);
-    border: none;
+.form-control {
+  padding-left: 30px;
+  background-color: var(--second-color);
+  border: none;
 }
 
-.linha{
-    border-bottom: rgb(146, 144, 144) solid 1px;
-    box-shadow: 1px 5px 24px -8px rgba(0,0,0,0.41);
--webkit-box-shadow: 1px 5px 24px -8px rgba(0,0,0,0.41);
--moz-box-shadow: 1px 5px 24px -8px rgba(0,0,0,0.41);
+.btn-search {
+  background-color: var(--primary-color);
+  color: var(--second-color);
+  border: none;
+}
+
+.linha {
+  border-bottom: rgb(146, 144, 144) solid 1px;
+  box-shadow: 1px 5px 24px -8px rgba(0, 0, 0, 0.41);
+  -webkit-box-shadow: 1px 5px 24px -8px rgba(0, 0, 0, 0.41);
+  -moz-box-shadow: 1px 5px 24px -8px rgba(0, 0, 0, 0.41);
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  margin: 0;
+
+  border: 3px solid rgba(139, 69, 19, 0);
+  position: absolute;
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
+}
+
+
+input[type="checkbox"]:checked {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  cursor: pointer;
+  border-radius: 4px;
+  border-color: rgba(252, 114, 8, 0.596);
+  -webkit-box-shadow: 0px 16px 18px -6px #FC7208; 
+  box-shadow: 0px 16px 18px -6px #FC7208;
+
+}
+
+input[type="checkbox"]:checked::after {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  border-radius: 100%;
 }
