@@ -40,12 +40,8 @@ include('connection.php');
             while ($user_data = $result->fetch_assoc()) {
                 $item_id = $user_data['id'];
                 $item_quantity = $item_counts[$item_id];
-                $item_total_price = $user_data['preco'] * $item_quantity;
-
-                $resumo_items .= '<div>
-                                    <span>' . $user_data['nome'] . ' x ' . $item_quantity . '</span>
-                                    <span>R$ ' . number_format($item_total_price, 2, ',', '.') . '</span>
-                                  </div>';
+                $item_price = $user_data['preco'];
+                $item_total_price = $item_price * $item_quantity;
 
                 echo '
                 <div class="card mb-3 mt-3" style="max-width: 540px;">
@@ -55,18 +51,18 @@ include('connection.php');
                         </div>
                         <div class="col-md-7 ">
                             <div class="card-body p-0 pt-3 ps-4">
-                                <h5 class="card-title  ">' . $user_data['nome'] . '</h5>
+                                <h5 class="card-title">' . $user_data['nome'] . '</h5>
                                 <p class="card-text mb-2">' . $user_data['categoria'] . '</p>
-                                <p class="card-text mb-2 fw-bold">R$' . $user_data['preco'] . '</p>
+                                <p class="card-text mb-2 fw-bold">R$ ' . number_format($item_price, 2, ',', '.') . '</p>
                                 
                                 <div class="col-4">
                                     <p class="card-text d-flex">QUANTIDADE:</p>
                                 </div>
                                 <div class="col-4 p-0 d-flex">
                                     <div class="qty">
-                                        <button id="diminuir">-</button>
-                                        <span id="quantidade">' . $item_quantity . '</span>
-                                        <button id="aumentar">+</button>
+                                        <button class="diminuir" data-id="' . $item_id . '">-</button>
+                                        <span class="quantidade" data-id="' . $item_id . '">' . $item_quantity . '</span>
+                                        <button class="aumentar" data-id="' . $item_id . '">+</button>
                                     </div>
                                 </div>
                             </div>
@@ -84,6 +80,10 @@ include('connection.php');
                 </div>';
 
                 $total_price += $item_total_price;
+                $resumo_items .= '<div>
+                                    <span>' . $user_data['nome'] . ' x <span class="quantidade" data-id="' . $item_id . '">' . $item_quantity . '</span></span>
+                                    <span class="item-price" data-id="' . $item_id . '" data-price="' . number_format($item_price, 2, '.', '') . '">R$ ' . number_format($item_total_price, 2, ',', '.') . '</span>
+                                  </div>';
             }
 
             echo '
@@ -96,7 +96,7 @@ include('connection.php');
                             ' . $resumo_items . '
                             <div>
                                 <span>Sub-total</span>
-                                <span>R$ ' . number_format($total_price, 2, ',', '.') . '</span>
+                                <span id="sub-total">R$ ' . number_format($total_price, 2, ',', '.') . '</span>
                             </div>
                             <div>
                                 <span>Frete</span>
@@ -111,7 +111,7 @@ include('connection.php');
                         </div>
                         <footer>
                             <span>Total</span>
-                            <span>R$ ' . number_format($total_price, 2, ',', '.') . '</span>
+                            <span id="total">R$ ' . number_format($total_price, 2, ',', '.') . '</span>
                         </footer>
                     </div>
                     <button>Finalizar Compra</button>
