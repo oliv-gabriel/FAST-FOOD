@@ -50,3 +50,21 @@ const updateTotals = () => {
     document.getElementById('sub-total').innerHTML = 'R$ ' + subtotal.toFixed(2).replace('.', ',');
     document.getElementById('total').innerHTML = 'R$ ' + subtotal.toFixed(2).replace('.', ',');
 };
+
+
+function saveSelection() {
+  const selectedItems = [];
+  document.querySelectorAll('input[type="checkbox"]:checked').forEach((checkbox) => {
+    selectedItems.push(checkbox.value);
+  });
+  sessionStorage.setItem('selectedItems', JSON.stringify(selectedItems));
+}
+
+function showPaymentDetails() {
+    var paymentMethod = document.getElementById('payment_method').value;
+    var cardDetails = document.getElementById('card-details');
+    var pixDetails = document.getElementById('pix-details');
+    cardDetails.style.display = paymentMethod === 'credit' || paymentMethod === 'debit' ? 'block' : 'none';
+    pixDetails.style.display = paymentMethod === 'pix' ? 'block' : 'none';
+}
+

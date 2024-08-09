@@ -156,6 +156,10 @@ input[type="checkbox"]:checked::after {
   height: 30px;
 }
 
+.quantidade-row{
+  margin-left: 1px;
+}
+
 .qty span {
   margin: 0 10px;
 }
@@ -188,11 +192,11 @@ input[type="checkbox"]:checked::after {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   font-size: 20px;
   color: #ffffff;
   fill: #ffffff;
@@ -226,31 +230,31 @@ aside .box .info {
   font-size: 16px;
 }
 
-aside .box .info > div {
+aside .box .info>div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   margin-bottom: 10px;
   color: #555;
 }
 
-aside .box .info > div:last-child {
+aside .box .info>div:last-child {
   margin: 0;
 }
 
 aside .box .info button {
-  color: #28a745;
+  color: var(--primary-color);
   background: transparent;
   border: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   font-size: 16px;
 }
 
@@ -262,15 +266,15 @@ aside .box footer {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
 }
 
-aside > button {
+aside>button{
   border: 0;
   padding: 15px 0;
-  color: white;
-  background: #28a745;
+  color: rgb(255, 255, 255);
+  background: var(--primary-color);
   display: block;
   width: 100%;
   text-transform: uppercase;
@@ -278,6 +282,100 @@ aside > button {
   font-size: 16px;
 }
 
-aside > button:hover {
-  background: #3bc55b;
+aside>button:hover{
+  background-color: #ffffff;
+  color:var(--primary-color);
+  border:1px solid var(--primary-color);
+}
+
+.btn-button{
+  background-color: var(--primary-color);
+  border: none;
+}
+.btn:hover{
+  background-color: #ffffff;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+
+.modal-body{
+  background-color: #f8f8f8;
+}
+
+.modal-input{
+  border: 1px solid var(--primary-color);
+}
+
+.form-container {
+  max-width: 500px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.form-group button {
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.form-group button:hover {
+  background-color: #45a049;
+}
+
+.payment-method,
+.card-details,
+.pix-details {
+  display: none;
+}
+
+.button-Adionar{
+  text-decoration: none;
+  background-color: #45a049;
+  border: none;
+  color: #ffffff;
+}
+
+.button-Adionar:hover{
+  text-decoration: none;
+  background-color: white;
+  color: #45a049;
+  border:1px solid #45a049;
+}
+
+.button-cancelar{
+  text-decoration: none;
+  background-color: #ff0000;
+  border: none;
+  color: #ffffff;
+  padding: 18px;
+}
+
+.button-cancelar:hover{
+  text-decoration: none;
+  background-color: white;
+  color: #ff0000;
+  border:1px solid #ff0000;
+  padding: 17px;
 }
