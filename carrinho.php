@@ -1,10 +1,8 @@
 <?php
 include('connection.php');
 include('pagamento.php');
-session_start()
+session_start();
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -15,35 +13,41 @@ session_start()
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
 <?php
+if (isset($_POST['remove_item_id'])) {
+    $item_id_to_remove = $_POST['remove_item_id'];
+
+
+    if (isset($_SESSION['itens_selecionados'])) {
+
+        $_SESSION['itens_selecionados'] = array_filter($_SESSION['itens_selecionados'], function($id) use ($item_id_to_remove) {
+            return $id != $item_id_to_remove;
+        });
+    }
+}
+
 
 if (isset($_POST['itens_selecionados']) && is_array($_POST['itens_selecionados'])) {
     $selected_items = $_POST['itens_selecionados'];
     $_SESSION['itens_selecionados'] = $selected_items;
 } else {
-
     $selected_items = isset($_SESSION['itens_selecionados']) ? $_SESSION['itens_selecionados'] : [];
 }
 
-// Conta as quantidades de cada item
-$item_counts = array_count_values($selected_items);
 
-// Verifica se há itens selecionados
+
+$item_counts = array_count_values($selected_items);
 if (!empty($item_counts)) {
-    // Monta a query para buscar os itens no banco de dados
     $ids = implode(',', array_map('intval', array_keys($item_counts)));
     $query = "SELECT * FROM comida WHERE id IN ($ids)";
     $result = $mysqli->query($query);
 
     if ($result && $result->num_rows > 0) {
-        // Cabeçalho do carrinho
         echo '<p class="linha fs-1 fw-bold d-flex justify-content-evenly m-0">CARRINHO</p>';
         echo '<div class="container"><div class="row"><div class="col">';
 
         $total_price = 0;
         $resumo_items = '';
-
 
         while ($user_data = $result->fetch_assoc()) {
             $item_id = $user_data['id'];
@@ -55,7 +59,7 @@ if (!empty($item_counts)) {
             <div class="card mb-3 mt-3" style="max-width: 540px;">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img src="' . $user_data['img'] . '" class="img-fluid rounded-start" alt="...">
+                        <img src="' . $user_data['img'] . '" class="img-fluid h-100 rounded-start" alt="...">
                     </div>
                     <div class="col-md-7">
                         <div class="card-body p-0 pt-3 ps-4">
@@ -77,11 +81,14 @@ if (!empty($item_counts)) {
                         </div>
                     </div>
                     <div class="col d-flex justify-content-center align-items-center me-2 p-0">
-                        <button class="remove">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" class="bi bi-x" viewBox="0 0 16 16">
-                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
-                            </svg>
-                        </button>
+                        <form action="carrinho.php" method="post">
+                            <input type="hidden" name="remove_item_id" value="' . $item_id . '">
+                            <button type="submit" class="remove">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" class="bi bi-x" viewBox="0 0 16 16">
+                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+                                </svg>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>';
@@ -117,10 +124,11 @@ if (!empty($item_counts)) {
         <div class="row mt-2 text-center">
             <div class="col">
                 <form action="index.php" method="POST">';
-    
+
     foreach ($selected_items as $item_id) {
         echo '<input type="hidden" name="itens_selecionados[]" value="' . $item_id . '">';
     }
+
     echo'
     <button type="submit">Voltar a comprar</button>
 </form>
@@ -159,57 +167,48 @@ if (!empty($item_counts)) {
                             <div class="col-12">
                                 <div class="form-container">
                                     <div class="form-group">
-                                        <label for="payment_method">Método de Pagamento:</label>
-                                        <select id="payment_method" name="payment_method" onchange="showPaymentDetails()" required>
-                                            <option value="">Selecione...</option>
-                                            <option value="credit">Cartão de Crédito</option>
-                                            <option value="debit">Cartão de Débito</option>
-                                            <option value="pix">Pix</option>
+                                        <label for="payment-method">Selecione a forma de pagamento:</label>
+                                        <select class="form-control" id="payment-method" name="payment_method">
+                                            <option value="credito">Cartão de Crédito</option>
+                                            <option value="debito">Cartão de Débito</option>
+                                            <option value="boleto">Boleto Bancário</option>
+                                            <option value="pix">PIX</option>
                                         </select>
                                     </div>
-                                    <div id="card-details" class="card-details">
-                                        <div class="form-group">
-                                            <label for="name">Nome no Cartão:</label>
-                                            <input type="text" id="name" name="name">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="card_number">Número do Cartão:</label>
-                                            <input type="text" id="card_number" name="card_number">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="expiry_date">Data de Validade:</label>
-                                            <input type="text" id="expiry_date" name="expiry_date">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="cvv">CVV:</label>
-                                            <input type="text" id="cvv" name="cvv">
-                                        </div>
+                                    <div class="form-group">
+                                        <label for="card-number">Número do Cartão:</label>
+                                        <input type="text" class="form-control" id="card-number" name="card_number">
                                     </div>
-                                    <div id="pix-details" class="pix-details">
-                                        <label for="pix_key">Chave Pix:</label>
-                                        <input type="text" id="pix_key" name="pix_key">
+                                    <div class="form-group">
+                                        <label for="expiration-date">Data de Expiração:</label>
+                                        <input type="text" class="form-control" id="expiration-date" name="expiration_date">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cvv">CVV:</label>
+                                        <input type="text" class="form-control" id="cvv" name="cvv">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12">
-                                <button type="submit" class="btn btn-primary">Finalizar Compra</button>
+                                <button type="submit" class="button-carrinho" data-bs-dismiss="modal">Finalizar compra</button>
                             </div>
                         </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    </div>
                 </div>
             </div>
-        </div>
-        </aside></div></div></div>';
+        </div></aside></div></div></div>';
     } else {
-        echo '<p class="text-center">Nenhum item selecionado</p>';
+        echo '<p>Nenhum item selecionado.</p>';
     }
 } else {
-    echo '<p class="text-center">Nenhum item selecionado</p>';
+    echo '<p>Nenhum item selecionado.</p>';
 }
-?>  
+?>
+
+
+
+<script src=".\script\carrinho.js"></script>
+<script src=".\script\pagamento.js"></script>
 </body>
 
 </html>

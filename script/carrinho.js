@@ -52,14 +52,6 @@ const updateTotals = () => {
 };
 
 
-function saveSelection() {
-  const selectedItems = [];
-  document.querySelectorAll('input[type="checkbox"]:checked').forEach((checkbox) => {
-    selectedItems.push(checkbox.value);
-  });
-  sessionStorage.setItem('selectedItems', JSON.stringify(selectedItems));
-}
-
 function showPaymentDetails() {
     var paymentMethod = document.getElementById('payment_method').value;
     var cardDetails = document.getElementById('card-details');

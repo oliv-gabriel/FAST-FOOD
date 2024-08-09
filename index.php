@@ -48,10 +48,6 @@ $itens_selecionados = isset($_SESSION['itens_selecionados']) ? $_SESSION['itens_
   </nav>
 
   <?php
-
-
-  
-
   $last_categoria = '';
 
   echo '<form id="formCheck" action="carrinho.php" method="post">';
@@ -78,8 +74,10 @@ if ($result->num_rows > 0){
                     <?php echo in_array($user_data['id'], $itens_selecionados) ? 'checked' : ''; ?>
   
                     <?php
-                    echo'
-                    <img src="' . $user_data['img'] . '" class="card-img-top" alt="IMAGEM">
+                    echo'>
+
+                    <img src="'.$user_data['img'].'" class=" h-100" alt="Minha Figura">
+                    
                     <div class="card-body">
                         <h5 class="card-title">' . $user_data['nome'] . '</h5>
                         <p class="card-text">' . $user_data['descricao'] . '</p>
